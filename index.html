@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>QRIS Generator + Logo</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .qr-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      margin-top: 20px;
+    }
+    #qrcode {
+      width: 100%;
+      height: 100%;
+    }
+    .qr-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      object-fit: cover;
+      background: white;
+      padding: 4px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      width: 80%;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔳 QRIS Generator + Logo Tengah</h2>
+
+  <input type="text" id="linkInput" placeholder="Masukkan link pembayaran QRIS">
+  <br>
+  <button onclick="generateQR()">🧾 Generate QR</button>
+
+  <div class="qr-wrapper">
+    <div id="qrcode"></div>
+    <!-- Ganti src logo sesuai kebutuhan -->
+    <img src="dapur.png" class="qr-logo" alt="Logo Tengah">
+  </div>
+
+  <p id="linkArea"></p>
+
+  <script>
+    function generateQR() {
+      const link = document.getElementById("linkInput").value;
+      const qrcodeContainer = document.getElementById("qrcode");
+      const linkArea = document.getElementById("linkArea");
+
+      // Clear QR sebelumnya
+      qrcodeContainer.innerHTML = "";
+
+      if (link.trim() === "") {
+        alert("Masukkan link pembayaran QRIS atau link tujuan");
+        return;
+      }
+
+      new QRCode(qrcodeContainer, {
+        text: link,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H // untuk error correction tinggi (agar logo tidak rusak)
+      });
+
+      linkArea.innerHTML = `<a href="${link}" target="_blank">🔗 Klik untuk buka pembayaran</a>`;
+    }
+  </script>
+
+</body>
+</html>
