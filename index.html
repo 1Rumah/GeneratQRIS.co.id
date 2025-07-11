@@ -2,36 +2,39 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>QRIS Generator Untuk Dapur Ulya Pak Andi Unlimited</title>
+  <title>Mesin QRIS Generator Pak Andi Unlimited</title>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
   <style>
     body {
       font-family: sans-serif;
-      text-align: center;
-      padding: 30px;
+    text-align: center;
+    padding: 30px;
+    height: 100%;
+    width: 301px;
     }
     .qr-wrapper {
       position: relative;
       display: inline-block;
-      width: 200px;
-      height: 200px;
+      width: 500px;
+      height: 500px;
       margin-top: 20px;
     }
     #qrcode {
-      width: 100%;
-      height: 100%;
+      width: 500%;
+      height: 500%;
     }
     .qr-logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 50px;
-      height: 50px;
-      transform: translate(-50%, -50%);
-      border-radius: 10px;
-      object-fit: cover;
-      background: white;
-      padding: 4px;
+     position: absolute;
+    top: 90%;
+    left: 95%;
+    width: 100px;
+    height: 300px;
+    width: 300px;
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    object-fit: cover;
+    background: #82a32000;
+    padding: 8px;
     }
     input, button {
       padding: 10px;
@@ -49,6 +52,9 @@
   <input type="text" id="linkInput" placeholder="Masukkan link pembayaran QRIS">
   <br>
   <button onclick="generateQR()">🧾 Generate QR</button>
+  <button onclick="downloadQR()">⬇️ Unduh no Logo</button>
+  <h2> untuk hasil QR + Logo SC Layar</h2>
+
 
   <div class="qr-wrapper">
     <div id="qrcode"></div>
@@ -74,14 +80,26 @@
 
       new QRCode(qrcodeContainer, {
         text: link,
-        width: 200,
-        height: 200,
+        width: 1000, // Menyesuaikan ukuran QR Code
+        height: 1000,
         colorDark: "#000000",
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H // untuk error correction tinggi (agar logo tidak rusak)
       });
 
       linkArea.innerHTML = `<a href="${link}" target="_blank">🔗 Klik untuk buka pembayaran</a>`;
+    }
+
+    function downloadQR() {
+      const canvas = document.querySelector("canvas");
+      if (!canvas) {
+        alert("Generate QR Code terlebih dahulu.");
+        return;
+      }
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/jpeg");
+      link.download = "QRIS_dapur_ulya.jpg";
+      link.click();
     }
   </script>
 
